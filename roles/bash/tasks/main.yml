@@ -1,0 +1,17 @@
+---
+- name: create bashrc.d
+  file: path={{ ansible_env.HOME}}/bashrc.d/
+        force=yes
+        state=directory
+- name: link .bashrc
+  file: src={{ ansible_env.PWD }}/roles/bash/template/.bashrc
+        dest={{ ansible_env.HOME}}/.bashrc
+        force=yes
+        state=link
+- name: link {{ item }}
+  file: src={{ ansible_env.PWD }}/roles/bash/template/{{ item }}
+        dest={{ ansible_env.HOME}}/bashrc.d/{{ item }}
+        force=yes
+        state=link
+  with_items:
+    - prompt.bash

@@ -1,0 +1,6 @@
+[alias]
+	co = checkout
+	br = branch
+	sup = submodule update --init --recursive
+	tree = log --graph --full-history --all --color --oneline --decorate=full
+

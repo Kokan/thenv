@@ -1,0 +1,1 @@
+../roles/bash/template/.bashrc

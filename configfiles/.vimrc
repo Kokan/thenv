@@ -1,0 +1,1 @@
+../roles/vim/template/.vimrc

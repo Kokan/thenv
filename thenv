@@ -1,0 +1,12 @@
+#!/bin/bash
+base_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+type ansible-playbook > /dev/null || {
+sudo yum install -y ansible
+}
+
+cd $base_dir
+git submodule update --init --recursive
+ansible-playbook -v -i hosts -e level='basic' thenv.yml
+
+

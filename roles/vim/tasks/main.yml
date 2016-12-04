@@ -1,0 +1,22 @@
+---
+- name: install
+  package: name=vim state=latest
+  become: true
+- name: link .vimrc
+  file: src={{ ansible_env.PWD }}/roles/vim/template/.vimrc
+        dest={{ ansible_env.HOME}}/.vimrc
+        force=yes
+        state=link
+- name: create .vim directory
+  file: dest={{ ansible_env.HOME}}/.vim/{{ item }}
+        state=directory
+  with_items:
+  - doc
+  - plugin
+- name: link vim-fugitive
+  file: src={{ ansible_env.PWD }}/roles/vim/template/vim-fugitive/{{ item }}
+        dest={{ ansible_env.HOME}}/.vim/{{ item }}
+        state=link
+  with_items:
+  - plugin/fugitive.vim
+  - doc/fugitive.txt

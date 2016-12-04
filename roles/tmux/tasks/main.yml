@@ -1,0 +1,32 @@
+---
+- name: install
+  package: name=tmux state=latest
+  become: true
+- name: link .tmux.conf
+  file: src={{ ansible_env.PWD }}/roles/tmux/template/.tmux.conf
+        dest=~/.tmux.conf
+        state=link
+- name: clone source
+  git: repo=https://github.com/tmux/tmux.git
+       dest={{ ansible_env.HOME}}/tmux
+  when: level == 'full'
+- name: dependencies for build
+  package: name={{item}} state=latest
+  become: true
+  with_items:
+    - automake
+    - libevent-devel
+    - ncurses-devel
+  when: level == 'full'
+- name: autogen
+  shell: sh autogen.sh
+         chdir={{ ansible_env.HOME }}/tmux/
+  when: level == 'full'
+- name: configure
+  shell: sh configure
+         chdir={{ ansible_env.HOME }}/tmux/
+  when: level == 'full'
+- name: build
+  make: chdir={{ ansible_env.HOME}}/tmux/
+        target=all
+  when: level == 'full'

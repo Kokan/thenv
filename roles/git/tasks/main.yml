@@ -1,0 +1,26 @@
+---
+- name: install
+  package: name=git state=latest
+  become: true
+- name: link .gitconfig
+  file: src={{ ansible_env.PWD }}/roles/git/template/.gitconfig
+        dest={{ ansible_env.HOME}}/.gitconfig
+        state=link
+- name: clone source
+  git: repo=https://github.com/git/git.git
+       dest={{ ansible_env.HOME}}/git
+  when: level == 'full'
+- name: dependencies for build
+  package: name={{item}} state=latest
+  become: true
+  with_items:
+    - openssl-devel
+    - libcurl-devel
+    - expat-devel
+    - perl-devel
+  when: level == 'full'
+- name: build
+  make: chdir={{ ansible_env.HOME}}/git/
+        target=all
+  when: level == 'full'
+

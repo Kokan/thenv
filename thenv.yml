@@ -1,0 +1,23 @@
+---
+- hosts: all
+  tasks:
+  - name: install
+    package: name={{item}} state=latest
+    become: true
+    with_items:
+    - tree
+    - the_silver_searcher
+    - mc
+    - links
+    - jq
+    - asciinema
+    - bind-utils
+
+  roles:
+  - tmux
+  - vim
+  - git
+  - bash
+  - cpp
+  - debug
+

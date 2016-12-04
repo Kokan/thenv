@@ -1,0 +1,9 @@
+[submodule "roles/vim/template/YouCompleteMe"]
+	path = roles/vim/template/YouCompleteMe
+	url = https://github.com/Valloric/YouCompleteMe.git
+[submodule "roles/vim/template/vim-fugitive"]
+	path = roles/vim/template/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule "roles/cpp/template/cppman"]
+	path = roles/cpp/template/cppman
+	url = https://github.com/aitjcize/cppman.git
