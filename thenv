@@ -2,7 +2,8 @@
 base_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 type ansible-playbook > /dev/null || {
-sudo yum install -y ansible
+  sudo yum install -y ansible
+  sudo pacman -Sy --noconfirm  ansible
 }
 
 cd $base_dir

@@ -1,10 +1,17 @@
 ---
-#- name: install cppman
-#  command: python {{ ansible_env.PWD }}/roles/cpp/template/cppman/setup.py install
 - name: install
   package: name={{item}} state=latest
   become: true
   with_items:
-  - libstdc++-docs
   - gcc
   - clang
+  - python-pip
+- name: pip install cppman
+  pip:
+    name: "{{item}}"
+  become: true
+  with_items:
+  - bs4
+  - html5lib
+  - cppman
+
