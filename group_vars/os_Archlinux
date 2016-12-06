@@ -1,9 +1,2 @@
 ---
-tree: tree
-ag: the_silver_searcher
-mc: mc
-links: links
-jq: jq
-asciinema: asciinema
 bind_utils: bind-tools
-libstdcpp_docs: libstdc++-doc
