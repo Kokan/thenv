@@ -6,4 +6,3 @@ links: links
 jq: jq
 asciinema: asciinema
 bind_utils: bind-utils
-libstdcpp_docs: libstdc++-docs

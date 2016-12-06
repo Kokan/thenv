@@ -1,13 +1,42 @@
 #!/bin/bash
 base_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-type ansible-playbook > /dev/null || {
-  sudo yum install -y ansible
-  sudo pacman -Sy --noconfirm  ansible
+function install()
+{
+   local pkg_mgr='echo Install before running: '
+   local sudo=
+   if [[ $(/usr/bin/id -u) -ne 0 ]]; then
+       sudo=sudo
+   fi
+
+   type yum 2> /dev/null > /dev/null && {
+      pkg_mgr="yum install -y "
+   }
+
+   type apt 2> /dev/null > /dev/null && {
+      pkg_mgr="apt install -y "
+   }
+
+   type pacman 2> /dev/null > /dev/null && {
+      pkg_mgr="pacman -Sy --noconfirm "
+   }
+
+   $sudo $pkg_mgr "$@"
+}
+
+
+type ansible-playbook 2> /dev/null > /dev/null || {
+  type yum 2> /dev/null > /dev/null && install "epel-release"
+
+  install "python"
+  install "ansible"
+}
+
+type git 2> /dev/null > /dev/null || {
+  install "git"
 }
 
 cd $base_dir
 git submodule update --init --recursive
 ansible-playbook -v -i hosts -e level='basic' thenv.yml
-
 
