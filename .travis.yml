@@ -5,11 +5,11 @@ services:
 
 before_install:
   - docker pull dock0/arch
-  - docker pull ubuntu
+  - docker pull ubuntu:16.10
   - docker pull centos
 
 script:
   - docker run -it -v $(pwd):/thenv dock0/arch bash -c "/thenv/thenv && /thenv/thenv"
-  - docker run -it -v $(pwd):/thenv ubuntu bash -c "apt update && /thenv/thenv && /thenv/thenv"
+  - docker run -it -v $(pwd):/thenv ubuntu:16.10 bash -c "apt update && /thenv/thenv && /thenv/thenv"
   - docker run -it -v $(pwd):/thenv centos bash -c "yum install -y epel-release && /thenv/thenv && /thenv/thenv"
 
