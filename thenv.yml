@@ -13,6 +13,8 @@
     - "{{ jq }}"
     - "{{ asciinema }}"
     - "{{ bind_utils }}"
+    - "{{ aspell }}"
+    - "{{ aspell_en }}"
 
   roles:
   - tmux
