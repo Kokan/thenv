@@ -8,3 +8,4 @@ asciinema: asciinema
 bind_utils: bind-utils
 aspell: aspell
 aspell_en: aspell-en
+cron: cron

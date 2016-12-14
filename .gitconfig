@@ -1,5 +1,0 @@
-[alias]
-	co = checkout
-	br = branch
-	sfetch = submodule update --init --recursive
-	tree = log --graph --full-history --all --color --oneline --decorate=full

@@ -2,10 +2,9 @@
 - name: install
   package: name=git state=latest
   become: true
-- name: link .gitconfig
-  file: src={{ ansible_env.PWD }}/roles/git/template/.gitconfig
-        dest={{ ansible_env.HOME}}/.gitconfig
-        state=link
+- template:
+   src: gitconfig.j2
+   dest: ~/.gitconfig
 - name: clone source
   git: repo=https://github.com/git/git.git
        dest={{ ansible_env.HOME}}/git

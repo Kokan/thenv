@@ -1,0 +1,12 @@
+---
+- name: install cron
+  package: name={{cron}} state=latest
+  become: true
+- template:
+     src: ansible-pull.j2
+     dest: /etc/cron.hourly/ansible-pull
+     group: root
+     owner: root
+     mode: u+rwx,g=rx,o=rx
+  become: true
+

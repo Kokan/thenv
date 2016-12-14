@@ -2,10 +2,10 @@
 - name: install
   package: name=tmux state=latest
   become: true
-- name: link .tmux.conf
-  file: src={{ ansible_env.PWD }}/roles/tmux/template/.tmux.conf
-        dest=~/.tmux.conf
-        state=link
+- template:
+    src: tmux.j2
+    dest: ~/.tmux.conf
+    backup: yes
 - name: clone source
   git: repo=https://github.com/tmux/tmux.git
        dest={{ ansible_env.HOME}}/tmux

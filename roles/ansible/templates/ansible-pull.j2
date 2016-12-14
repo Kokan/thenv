@@ -1,0 +1,4 @@
+#!/bin/bash
+
+ansible-pull -o -i hosts -e level=basic -U https://github.com/Kokan/thenv.git -d {{ ansible_env.HOME }}/thenv
+

@@ -37,6 +37,6 @@ type git 2> /dev/null > /dev/null || {
 }
 
 cd $base_dir
-git submodule update --init --recursive
-ansible-playbook -v -i hosts -e level='basic' thenv.yml
+
+ansible-playbook -v -i hosts -e level='basic' local.yml
 
