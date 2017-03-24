@@ -5,31 +5,14 @@ services:
 
 env:
   global:
-    - CACHE_DIR=$HOME/.cache/docker
     - DOCKER_ARCH=dock0/arch
     - DOCKER_UBUNTU=ubuntu:16.10
     - DOCKER_CENTOS=centos
-    - CACHE_FILE_ARCH=$CACHE_DIR/arch.tar.gz
-    - CACHE_FILE_UBUNTU=$CACHE_DIR/ubuntu.tar.gz
-    - CACHE_FILE_CENTOS=$CACHE_DIR/centos.tar.gz
-
-cache:
-  directories:
-  - $CACHE_DIR
-
-before_install:
-  - if [ -f ${CACHE_FILE_ARCH} ]; then gunzip -c ${CACHE_FILE_ARCH} | docker load; fi
-  - if [ -f ${CACHE_FILE_UBUNTU} ]; then gunzip -c ${CACHE_FILE_UBUNTU} | docker load; fi
-  - if [ -f ${CACHE_FILE_CENTOS} ]; then gunzip -c ${CACHE_FILE_CENTOS} | docker load; fi
 
 install:
   - docker run -d ${DOCKER_ARCH}
   - docker run -d ${DOCKER_UBUNTU}
   - docker run -d ${DOCKER_CENTOS}
-  - mkdir -p $CACHE_DIR
-  - if [ ! -f ${CACHE_FILE_ARCH} ]; then docker save ${DOCKER_ARCH} | gzip > ${CACHE_FILE_ARCH}; fi
-  - if [ ! -f ${CACHE_FILE_UBUNTU} ]; then docker save ${DOCKER_UBUNTU} | gzip > ${CACHE_FILE_UBUNTU}; fi
-  - if [ ! -f ${CACHE_FILE_CENTOS} ]; then docker save ${DOCKER_CENTOS} | gzip > ${CACHE_FILE_CENTOS}; fi
 
 script:
   - docker run -it -v $(pwd):/thenv dock0/arch bash -c "/thenv/thenv && /thenv/thenv"
