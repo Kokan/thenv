@@ -1,2 +1,3 @@
 ---
 bind_utils: bind-tools
+cron: cronie

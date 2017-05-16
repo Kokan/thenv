@@ -7,16 +7,19 @@ env:
   global:
     - DOCKER_ARCH=dock0/arch
     - DOCKER_UBUNTU=ubuntu:16.10
+    - DOCKER_DEBIAN=debian:jessie
     - DOCKER_CENTOS=centos
 
 install:
   - docker run -d ${DOCKER_ARCH}
   - docker run -d ${DOCKER_UBUNTU}
+  - docker run -d ${DOCKER_DEBIAN}
   - docker run -d ${DOCKER_CENTOS}
 
 script:
   - docker run -it -v $(pwd):/thenv dock0/arch bash -c "/thenv/thenv && /thenv/thenv"
-  - docker run -it -v $(pwd):/thenv ubuntu:16.10 bash -c "apt update && /thenv/thenv && /thenv/thenv"
+  - docker run -it -v $(pwd):/thenv ${DOCKER_UBUNTU} bash -c "apt update && /thenv/thenv && /thenv/thenv"
+  - docker run -it -v $(pwd):/thenv ${DOCKER_DEBIAN} bash -c "apt update && /thenv/thenv && /thenv/thenv"
   - docker run -it -v $(pwd):/thenv centos bash -c "yum install -y epel-release && /thenv/thenv && /thenv/thenv"
 
 
