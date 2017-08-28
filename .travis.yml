@@ -1,7 +1,3 @@
-sudo: required
-
-services:
-  - docker
 
 env:
   global:
@@ -10,16 +6,39 @@ env:
     - DOCKER_DEBIAN=debian:jessie
     - DOCKER_CENTOS=centos
 
-install:
-  - docker run -d ${DOCKER_ARCH}
-  - docker run -d ${DOCKER_UBUNTU}
-  - docker run -d ${DOCKER_DEBIAN}
-  - docker run -d ${DOCKER_CENTOS}
-
-script:
-  - docker run -it -v $(pwd):/thenv dock0/arch bash -c "/thenv/thenv && /thenv/thenv"
-  - docker run -it -v $(pwd):/thenv ${DOCKER_UBUNTU} bash -c "apt update && /thenv/thenv && /thenv/thenv"
-  - docker run -it -v $(pwd):/thenv ${DOCKER_DEBIAN} bash -c "apt update && /thenv/thenv && /thenv/thenv"
-  - docker run -it -v $(pwd):/thenv centos bash -c "yum install -y epel-release && /thenv/thenv && /thenv/thenv"
+matrix:
+  include:
+    - env: B=arch
+      sudo: required
+      services:
+        - docker
+      install:
+      - docker run -d ${DOCKER_ARCH}
+      script:
+      - docker run -it -v $(pwd):/thenv dock0/arch bash -c "/thenv/thenv && /thenv/thenv"
+    - env: B=ubuntu
+      sudo: required
+      services:
+        - docker
+      install:
+      - docker run -d ${DOCKER_UBUNTU}
+      script:
+      - docker run -it -v $(pwd):/thenv ${DOCKER_UBUNTU} bash -c "apt update && /thenv/thenv && /thenv/thenv"
+    - env: B=debian
+      sudo: required
+      services:
+        - docker
+      install:
+      - docker run -d ${DOCKER_DEBIAN}
+      script:
+      - docker run -it -v $(pwd):/thenv ${DOCKER_DEBIAN} bash -c "apt update && /thenv/thenv && /thenv/thenv"
+    - env: B=centos
+      sudo: required
+      services:
+        - docker
+      install:
+      - docker run -d ${DOCKER_CENTOS}
+      script:
+      - docker run -it -v $(pwd):/thenv centos bash -c "yum install -y epel-release && /thenv/thenv && /thenv/thenv"
 
 
