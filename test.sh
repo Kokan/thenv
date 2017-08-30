@@ -15,6 +15,12 @@ docker run        \
 docker run        \
  -it              \
  -v $(pwd):/thenv \
+ debian:stretch   \
+ bash -c "apt update && /thenv/thenv && /thenv/thenv"
+
+docker run        \
+ -it              \
+ -v $(pwd):/thenv \
  centos:latest    \
  bash -c "yum install -y epel-release && /thenv/thenv && /thenv/thenv"
 
