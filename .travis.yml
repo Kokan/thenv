@@ -3,7 +3,7 @@ env:
   global:
     - DOCKER_ARCH=dock0/arch
     - DOCKER_UBUNTU=ubuntu:16.10
-    - DOCKER_DEBIAN=debian:jessie
+    - DOCKER_DEBIAN=debian:stretch
     - DOCKER_CENTOS=centos
 
 matrix:
