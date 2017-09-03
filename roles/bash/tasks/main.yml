@@ -13,3 +13,11 @@
     dest=~/bashrc.d/{{ item }}
   with_items:
     - prompt.bash
+- name: clone z
+  git: repo=https://github.com/rupa/z.git
+       dest={{ ansible_env.HOME}}/z
+- name: install z
+  file:
+    src: '{{ ansible_env.HOME}}/z/z.sh'
+    dest: '{{ ansible_env.HOME}}/bashrc.d/z.bash'
+    state: link
