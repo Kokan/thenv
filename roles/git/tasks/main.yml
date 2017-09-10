@@ -1,10 +1,35 @@
 ---
-- name: install
+- name: create .git_template
+  file: path={{ ansible_env.HOME}}/.git_template/
+        force=yes
+        state=directory
+- name: create .git_template/hooks
+  file: path={{ ansible_env.HOME}}/.git_template/hooks/
+        force=yes
+        state=directory
+- name: install git
   package: name=git state=latest
+  become: true
+- name: install ctags
+  package: name=ctags state=latest
   become: true
 - template:
    src: gitconfig.j2
    dest: ~/.gitconfig
+   backup: yes
+- template:
+   src: ctags.j2
+   dest: ~/.git_template/hooks/ctags
+   mode: u=rwx
+- template:
+    src:  "{{item}}.j2"
+    dest: "~/.git_template/hooks/{{item}}"
+    mode: u=rwx
+  with_items:
+    - post-commit
+    - post-merge
+    - post-checkout
+    - post-rewrite
 - name: clone source
   git: repo=https://github.com/git/git.git
        dest={{ ansible_env.HOME}}/git
