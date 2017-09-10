@@ -3,4 +3,7 @@
 	br = branch
 	sup = submodule update --init --recursive
 	tree = log --graph --full-history --all --color --oneline --decorate=full
+	ctags = !.git/hooks/ctags
+[init]
+	templatedir = {{ ansible_env.HOME}}/.git_template/
 
