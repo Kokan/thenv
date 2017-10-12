@@ -1,7 +1,7 @@
 ---
 - hosts: all
   pre_tasks:
-  - group_by: key=os_{{ ansible_distribution }}
+  - group_by: key=os_{{ ansible_distribution | lower | replace(' ', '') }}
   - name: install
     package: name={{item}} state=latest
     become: true
