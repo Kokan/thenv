@@ -6,6 +6,7 @@
   - gcc
   - clang
   - python-pip
+  - ccache
 - name: pip install cppman
   pip:
     name: "{{item}}"
