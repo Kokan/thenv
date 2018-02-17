@@ -3,5 +3,7 @@
   package: name={{ item }} state=latest
   become: true
   with_items:
+  - gdb
+  - cgdb
   - strace
   - valgrind
