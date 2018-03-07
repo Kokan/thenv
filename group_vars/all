@@ -10,3 +10,4 @@ aspell: aspell
 aspell_en: aspell-en
 cron: cron
 sudo: sudo
+iptraf_ng: iptraf-ng

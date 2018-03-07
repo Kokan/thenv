@@ -16,6 +16,7 @@
     - "{{ bind_utils }}"
     - "{{ aspell }}"
     - "{{ aspell_en }}"
+    - "{{ iptraf_ng }}"
 
   roles:
   - tmux
