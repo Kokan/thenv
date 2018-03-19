@@ -19,7 +19,15 @@ function __prompt_command()
  
 
     #PS1
-    PS1+="${RCol}${Gre}\u${RCol}@${BBlu}\h ${Pur}\w"
+    PS1+="${RCol}${Gre}\u${RCol}@${BBlu}\h"
+
+    local IS_CONTAINER=$(cat /proc/self/cgroup | grep -c docker)
+    if [ "$IS_CONTAINER" != "0" ]; then
+       PS1+="${BBlu}[C]${RCol}"
+    fi
+
+    #Path
+    PS1+=" ${Pur}\w"
 
     local GIT_BRANCH=$(git branch 2>/dev/null | grep "^*" | colrm 1 2)
     if [ "$GIT_BRANCH" != "" ]; then
