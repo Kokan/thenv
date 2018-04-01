@@ -1,13 +1,22 @@
 #!/bin/bash
 base_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-function install()
+function get_sudo()
 {
-   local pkg_mgr='echo Install before running: '
    local sudo=
    if [[ $(/usr/bin/id -u) -ne 0 ]]; then
        sudo=sudo
+       timeout 2 sudo -n id || sudo=gksudo
+
+       $sudo --preserve-env bash $0 "$@"
+       exit $?
    fi
+}
+
+function install()
+{
+   local pkg_mgr='echo Install before running: '
+   get_sudo
 
    type yum 2> /dev/null > /dev/null && {
       pkg_mgr="yum install -y "
@@ -21,9 +30,10 @@ function install()
       pkg_mgr="pacman -Sy --noconfirm "
    }
 
-   $sudo $pkg_mgr "$@"
+   $pkg_mgr "$@"
 }
 
+get_sudo
 
 type ansible-playbook 2> /dev/null > /dev/null || {
   type yum 2> /dev/null > /dev/null && install "epel-release"
