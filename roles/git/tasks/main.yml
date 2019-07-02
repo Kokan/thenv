@@ -10,6 +10,9 @@
 - name: install git
   package: name=git state=latest
   become: true
+- name: install tig
+  package: name=tig state=latest
+  become: true
 - name: install ctags
   package: name=ctags state=latest
   become: true
