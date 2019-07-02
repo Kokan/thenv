@@ -15,10 +15,3 @@
   git:
     repo: https://github.com/tpope/vim-fugitive.git
     dest: "{{ current_home }}/.vim/vim-fugitive"
-- name: link vim-fugitive
-  file: src={{ current_home }}/.vim/vim-fugitive/{{ item }}
-        dest={{ current_home }}/.vim/{{ item }}
-        state=link
-  with_items:
-  - plugin/fugitive.vim
-  - doc/fugitive.txt
