@@ -33,8 +33,6 @@ function install()
    $pkg_mgr "$@"
 }
 
-get_sudo
-
 type ansible-playbook 2> /dev/null > /dev/null || {
   type yum 2> /dev/null > /dev/null && install "epel-release"
 
@@ -48,5 +46,8 @@ type git 2> /dev/null > /dev/null || {
 
 cd $base_dir
 
-ansible-playbook -v -i hosts -e level='basic' local.yml
+current_home=`cd;pwd`
+current_user=`whoami`
+
+ansible-playbook -v -i hosts -become-method=sudo --ask-become-pass -e current_user=${current_user} -e current_home=${current_home} -e level='basic' local.yml
 

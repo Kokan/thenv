@@ -4,9 +4,9 @@
   become: true
 - template:
     src: vimrc.j2
-    dest: ~/.vimrc
+    dest: "{{ current_home }}/.vimrc"
 - name: create .vim directory
-  file: dest=~/.vim/{{ item }}
+  file: dest={{ current_home }}/.vim/{{ item }}
         state=directory
   with_items:
   - doc
@@ -14,10 +14,10 @@
 - name: git clone
   git:
     repo: https://github.com/tpope/vim-fugitive.git
-    dest: ~/.vim/vim-fugitive
+    dest: "{{ current_home }}/.vim/vim-fugitive"
 - name: link vim-fugitive
-  file: src={{ ansible_env.HOME }}/.vim/vim-fugitive/{{ item }}
-        dest={{ ansible_env.HOME}}/.vim/{{ item }}
+  file: src={{ current_home }}/.vim/vim-fugitive/{{ item }}
+        dest={{ current_home }}/.vim/{{ item }}
         state=link
   with_items:
   - plugin/fugitive.vim

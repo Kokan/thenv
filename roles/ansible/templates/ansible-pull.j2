@@ -1,4 +1,4 @@
 #!/bin/bash
 
-ansible-pull -o -i hosts -e level=basic -U https://github.com/Kokan/thenv.git -d {{ ansible_env.HOME }}/thenv
+ansible-pull -o -i hosts -e level=basic -U https://github.com/Kokan/thenv.git -d {{ current_home }}/thenv -e current_user={{ current_user }} -e current_home={{ current_home }}
 
