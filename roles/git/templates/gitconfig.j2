@@ -7,7 +7,7 @@
 [include]
 	path = .gitconfig.local
 [init]
-	templatedir = {{ ansible_env.HOME}}/.git_template/
+	templatedir = {{ current_home }}/.git_template/
 [diff]
 	algorithm = histogram
 

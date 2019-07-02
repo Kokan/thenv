@@ -1,6 +1,6 @@
 ---
 - name: create bashrc.d
-  file: path={{ ansible_env.HOME}}/bashrc.d/
+  file: path={{ current_home }}/bashrc.d/
         force=yes
         state=directory
 - name: master config .bashrc
@@ -16,9 +16,9 @@
     - default.bash
 - name: clone z
   git: repo=https://github.com/rupa/z.git
-       dest={{ ansible_env.HOME}}/z
+       dest={{ current_home }}/z
 - name: install z
   file:
-    src: '{{ ansible_env.HOME}}/z/z.sh'
-    dest: '{{ ansible_env.HOME}}/bashrc.d/z.bash'
+    src: '{{ current_home }}/z/z.sh'
+    dest: '{{ current_home }}/bashrc.d/z.bash'
     state: link
