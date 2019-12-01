@@ -6,11 +6,11 @@
 - name: master config .bashrc
   template:
    src=bashrc.j2
-   dest=~/.bashrc
+   dest={{ current_home }}/.bashrc
 - name: rest of the configs
   template:
     src={{ item }}.j2
-    dest=~/bashrc.d/{{ item }}
+    dest={{ current_home }}/bashrc.d/{{ item }}
   with_items:
     - prompt.bash
     - default.bash
